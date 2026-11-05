@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity                       // This class becomes a database table
-public class Student {
+public class StudentEntity {
 
     @Id                                                   // Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)   // Auto-increment
