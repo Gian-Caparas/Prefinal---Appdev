@@ -25,14 +25,17 @@ public class EmployeeService {
     }
 
     public EmployeeEntity putEmployee(int id, EmployeeEntity newEmployeeDetails) {
-        EmployeeEntity employee = repo.findById(id).orElse(null);
-        if (employee != null) {
+        EmployeeEntity employee = new EmployeeEntity();
+        try{
+            employee = repo.findById(idnum).get();
             employee.setName(newEmployeeDetails.getName());
             employee.setPosition(newEmployeeDetails.getPosition());
             employee.setSalary(newEmployeeDetails.getSalary());
-            return repo.save(employee);
+        }catch (NoSuchElementException ex){
+            throw new  NameNotFoundException("Employee: " + id + "does now exist!");
+        }finally{
+            return repo.save(employee); // at table student in database
         }
-        return null;
     }
 
     public void deleteEmployee(int idnum){
