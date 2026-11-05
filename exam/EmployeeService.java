@@ -1,11 +1,9 @@
 package exam;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
-import javax.naming.NameNotFoundException;
-
-import com.example.demo.entity.StudentEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
@@ -26,18 +24,15 @@ public class EmployeeService {
         return repo.findById(idnum).orElse(null);
     }
 
-    public EmployeeEntity puEmployeeEntity(int id, EmployeeEntity newEmployeeDetails) {
-        EmployeeEntity employee = new EmployeeEntity();
-        try{
-            employee = repo.findById(idnum).get();
+    public EmployeeEntity putEmployee(int id, EmployeeEntity newEmployeeDetails) {
+        EmployeeEntity employee = repo.findById(id).orElse(null);
+        if (employee != null) {
             employee.setName(newEmployeeDetails.getName());
             employee.setPosition(newEmployeeDetails.getPosition());
             employee.setSalary(newEmployeeDetails.getSalary());
-        }catch(NoSuchElementException ex){
-           throw new  NameNotFoundException("Employee: " + id + "does now exist!");
-        }finally{
             return repo.save(employee);
         }
+        return null;
     }
 
     public void deleteEmployee(int idnum){
