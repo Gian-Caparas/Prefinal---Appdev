@@ -37,8 +37,8 @@ public class StudentService {
         StudentEntity student = new StudentEntity();
         try{
             student = repo.findById(id).get();
-            student.setName(newStudentDetails.getName);
-            student.setCourse(newStudentDetails.getCourse);
+            student.setName(newStudentDetails.getName());
+            student.setCourse(newStudentDetails.getCourse());
         }catch (NoSuchElementException ex){
             throw new  NameNotFoundException("Student: " + id + "does now exist!");
         }finally{
